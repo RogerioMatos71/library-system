@@ -1,0 +1,67 @@
+package application;
+
+import java.util.Scanner;
+
+import entities.Library;
+import util.InputUtils;
+
+public class Program {
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		Library library = new Library();
+		int option;
+		
+		
+		
+		
+		
+		do {
+			
+			InputUtils.showMenu();
+		
+			option = sc.nextInt();
+		
+		
+		switch (option) {
+		case 1:
+			
+			InputUtils.enterData( sc, library);
+			
+		    break;
+		
+		case 2:
+			
+			InputUtils.consultName(sc, library);
+			
+		    break;
+		    
+		case 3:
+			
+			InputUtils.deleteName(sc, library);
+			
+			
+			
+		}
+		
+		
+		
+		}
+		while (option != 0);
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		sc.close();
+	
+		
+	}
+	
+	
+}

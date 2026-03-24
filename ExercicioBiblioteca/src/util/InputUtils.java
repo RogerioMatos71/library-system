@@ -1,0 +1,68 @@
+package util;
+
+import java.util.Scanner;
+
+import entities.Library;
+import entities.User;
+
+public class InputUtils {
+
+	public static void showMenu() {
+		System.out.println("Menu");
+		System.out.println("1 - Add user");
+		System.out.println("2 - Consult user");
+		System.out.println("3 - Remove user");
+		System.out.println("4 - Add book");
+		System.out.println("5 - Remove book");
+		System.out.println("6 - Borrow book");
+		System.out.println("7 - Return book");
+		System.out.println("0 - Exit");
+		System.out.println("Enter the desired option: ");
+
+	}
+
+	public static void enterData(Scanner sc, Library library) {
+
+		sc.nextLine();
+		System.out.print("Enter user name: ");
+		String name = sc.nextLine();
+		System.out.print("Enter user CPF: ");
+		String cpf = sc.nextLine();
+		System.out.print("Enter user register: ");
+		Integer registration = sc.nextInt();
+		sc.nextLine();
+		User user = new User(name, cpf, registration);
+
+		library.addUser(user);
+
+		System.out.println("User added successfully.");
+
+	}
+
+	public static void consultName(Scanner sc, Library library) {
+
+		sc.nextLine();
+		System.out.println("Enter the name to consult: ");
+		String name2 = sc.nextLine();
+		User result = library.consultUser(name2);
+
+		if (result != null) {
+		System.out.print(result);
+		}
+		else System.out.println("User not found!");
+
+	}
+
+	public static void deleteName(Scanner sc, Library library) {
+
+		sc.nextLine();
+		System.out.print("Enter user CPF: ");
+		String cpf = sc.nextLine();
+		
+		
+
+		library.removeUserByCpf(cpf);
+
+	}
+
+}

@@ -1,0 +1,83 @@
+package application;
+
+import java.util.Scanner;
+
+import entities.Library;
+import entities.User;
+
+public class Program {
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		int option;
+		
+		Library library = new Library();
+		
+		do {
+		System.out.println("Menu");
+		System.out.println("1 - Add user");
+		System.out.println("2 - Consult user");
+		System.out.println("3 - Remove user");
+		System.out.println("4 - Add book");
+		System.out.println("5 - Remove book");
+		System.out.println("6 - Borrow book");
+		System.out.println("7 - Return book");
+		System.out.println("0 - Exit");
+		System.out.println("Enter the desired option: ");
+		
+		option = sc.nextInt();
+		
+		switch (option) {
+		case 1:
+			System.out.print("Enter user name: ");
+		    sc.nextLine(); // limpar buffer
+		    String name = sc.nextLine();
+		    System.out.print("Enter user CPF: ");
+		    String CPF = sc.nextLine();
+		    System.out.print("Enter user register: ");
+		    Integer registration = sc.nextInt();
+		    
+		    User user = new User(name, CPF, registration);
+		    
+		    library.addUser(user);
+		   
+		    System.out.println("User added successfully.");
+		    break;
+		
+		case 2:
+			System.out.println("Enter the name to consult: ");
+			sc.nextLine();
+			String name2 = sc.nextLine();
+			String result = library.consultUser(name2);
+			
+			System.out.print(result);
+		    break;
+		    
+		case 3:
+			System.out.print("Enter the name to delete: ");
+			sc.nextLine();
+			String name3 = sc.nextLine();
+			String result2 = library.removeUser(name3);
+			library.removeUser(result2);
+			
+			
+			
+		}
+		
+		}
+		while (option != 0);
+	
+		
+		
+		
+		
+		
+		
+		
+		sc.close();
+		
+	
+		
+	}
+}

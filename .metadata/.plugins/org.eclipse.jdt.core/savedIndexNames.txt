@@ -1,0 +1,4 @@
+INDEX VERSION 1.134+C:\Users\roger\OneDrive\Documentos\Rogério\ADS Rogério\Udemy\ExercicioBiblioteca\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+2435288814.index
+586075558.index

@@ -1,0 +1,66 @@
+package application;
+
+import java.util.Scanner;
+
+import util.InputUtils;
+
+public class Program {
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		int option;
+		
+		
+		
+		
+		do {
+			
+			option = sc.nextInt();
+			
+			InputUtils.showMenu();
+		
+		
+		
+		
+		switch (option) {
+		case 1:
+			
+			InputUtils.enterData();
+			
+		    break;
+		
+		case 2:
+			
+			InputUtils.consultName();
+			
+		    break;
+		    
+		case 3:
+			
+			InputUtils.deleteName();
+			
+			
+			
+		}
+		
+		
+		
+		}
+		while (option != 0);
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		sc.close();
+	
+		
+	}
+	
+	
+}
