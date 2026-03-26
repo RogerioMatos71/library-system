@@ -1,7 +1,10 @@
 package util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import entities.Book;
 import entities.Library;
 import entities.User;
 
@@ -47,9 +50,9 @@ public class InputUtils {
 		User result = library.consultUser(name2);
 
 		if (result != null) {
-		System.out.print(result);
-		}
-		else System.out.println("User not found!");
+			System.out.print(result);
+		} else
+			System.out.println("User not found!");
 
 	}
 
@@ -58,11 +61,36 @@ public class InputUtils {
 		sc.nextLine();
 		System.out.print("Enter user CPF: ");
 		String cpf = sc.nextLine();
-		
-		
 
 		library.removeUserByCpf(cpf);
 
+	}
+
+	public static void enterDataBook(Scanner sc, Library library) {
+
+		System.out.println("Enter book title: ");
+		String title = sc.nextLine();
+		System.out.println("Enter ISBN number: ");
+		String isbn = sc.nextLine();
+
+		Book book = new Book(title, isbn);
+
+		library.addBook(book);
+
+		System.out.println("Book added successfully!");
+
+	}
+	
+	public static void deleteBook(Scanner sc, Library library) {
+		List<Book> books = new ArrayList<>();
+		String input = sc.nextLine();
+		System.out.println("Enter book title or ISBN to remove: ");
+		
+		for (Book b : books) {
+			if (b.getTitle().equals(input) || b.getIsbn().equals(input)) {
+				library.removeBook(b);
+			}
+		}
 	}
 
 }

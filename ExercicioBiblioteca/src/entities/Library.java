@@ -35,7 +35,7 @@ public class Library {
 
 	public void borrowBook(String title) {
 		for (Book b : books) {
-			if (b.getTitle().equals(title) && b.isAvailable()) {
+			if (b.getTitle().equals(title)) {
 				b.setAvailable(false);
 				System.out.println("Book successfully borrowed");
 				return;

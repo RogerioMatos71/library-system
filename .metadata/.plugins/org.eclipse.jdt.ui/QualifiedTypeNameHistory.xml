@@ -8,4 +8,5 @@
     <fullyQualifiedTypeName name="util.InputUtils"/>
     <fullyQualifiedTypeName name="java.util.Scanner"/>
     <fullyQualifiedTypeName name="entities.Library"/>
+    <fullyQualifiedTypeName name="entities.Book"/>
 </qualifiedTypeNameHistroy>
