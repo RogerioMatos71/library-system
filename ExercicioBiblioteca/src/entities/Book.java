@@ -7,9 +7,10 @@ public class Book {
 	
 	private String title;
 	private String isbn;
-	private Boolean available;
+	private boolean available;
 	
 	private List<Book> books = new ArrayList<>();
+	
 	
 	public Boolean getAvailable() {
 		return available;
@@ -26,6 +27,7 @@ public class Book {
 	public Book(String title, String isbn) {
 		this.title = title;
 		this.isbn = isbn;
+		this.available = true;
 	}
 
 	public String getTitle() {
@@ -49,16 +51,11 @@ public class Book {
 	}
 	
 	
-	public String isAvailable() {
-		for (Book b : books) {
-			if (b.getTitle().equals(title)) {
-				return "Book is available";
-			}
-		}
-		  return "Book is not available";
+	public boolean isAvailable() {
+		return available;
 		
+	
+	
 	}
-	
-	
 
 }

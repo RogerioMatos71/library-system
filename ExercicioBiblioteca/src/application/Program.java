@@ -41,6 +41,25 @@ public class Program {
 			
 			InputUtils.deleteName(sc, library);
 			
+			break;
+			
+		case 4:
+			
+			InputUtils.enterDataBook(sc, library);
+			
+			break;
+			
+		case 5:
+			
+			InputUtils.deleteBook(sc, library);
+			
+			break;
+			
+		case 6:
+			
+			InputUtils.borrowBook(sc, library);
+			
+			break;
 			
 			
 		}

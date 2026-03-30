@@ -3,6 +3,8 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.enums.BorrowResult;
+
 public class Library {
 
 	private List<Book> books = new ArrayList<>();
@@ -15,14 +17,15 @@ public class Library {
 	public void removeUser(User user) {
 		users.remove(user);
 	}
-	
+
 	public User consultUser(String name) {
 		for (User u : users) {
-			if (u.getName().equals(name)){
-				return  u;
-			} 
-			
-		} return null;
+			if (u.getName().equals(name)) {
+				return u;
+			}
+
+		}
+		return null;
 	}
 
 	public void addBook(Book book) {
@@ -33,30 +36,38 @@ public class Library {
 		books.remove(book);
 	}
 
-	public void borrowBook(String title) {
+	public BorrowResult borrowBook(String title) {
+	    for (Book b : books) {
+	        if (title.equalsIgnoreCase(b.getTitle())) {
+
+	            if (b.isAvailable()) {
+	                b.setAvailable(false);
+	                return BorrowResult.SUCCESS;
+	            } else {
+	                return BorrowResult.UNAVAILABLE;
+	            }
+	        }
+	    }
+	    return BorrowResult.NOT_FOUND;
+	}
+
+
+	
+
+	
+
+	public boolean returnBook(String title) {
 		for (Book b : books) {
 			if (b.getTitle().equals(title)) {
-				b.setAvailable(false);
-				System.out.println("Book successfully borrowed");
-				return;
-			}
-		}
-		System.out.println("Book not available");
-
-	}
-	
-	public void returnBook(String title) {
-		for (Book b : books) {
-			if (b.getTitle().equals(title)){
 				b.setAvailable(true);
-				System.out.println("Book returned");
-				return;
+				return true;
+
 			}
-		}
+		} return false;
+		
 	}
 
 	public void removeUserByCpf(String cpf) {
-			 users.removeIf(u -> cpf.equals(u.getCpf()));
-		}
-		
+		users.removeIf(u -> cpf.equals(u.getCpf()));
 	}
+}
