@@ -7,11 +7,21 @@ public class Book {
 	
 	private String title;
 	private String isbn;
+	private String id;
 	private boolean available;
+	private boolean unavailable;
 	
 	private List<Book> books = new ArrayList<>();
 	
 	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public Boolean getAvailable() {
 		return available;
 	}
@@ -24,9 +34,10 @@ public class Book {
 		
 	}
 
-	public Book(String title, String isbn) {
+	public Book(String title, String isbn, String id) {
 		this.title = title;
 		this.isbn = isbn;
+		this.id = id;
 		this.available = true;
 	}
 
@@ -53,9 +64,13 @@ public class Book {
 	
 	public boolean isAvailable() {
 		return available;
-		
-	
 	
 	}
+	
+	public boolean isUnvailable() {
+		return unavailable;
+	
+	}
+	
 
 }

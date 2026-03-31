@@ -4,16 +4,16 @@ public class User {
 	
 	private String name;
 	private String cpf;
-	private int registration;
+	private int id;
 	
 	public User () {
 		
 	}
 
-	public User(String name, String cpf, int registration) {	
+	public User(String name, String cpf, int id) {	
 		this.name = name;
 		this.cpf = cpf;
-		this.registration = registration;
+		this.id = id;
 	}
 
 	public String getName() {
@@ -32,19 +32,17 @@ public class User {
 		this.cpf = cpf;
 	}
 
-	public int getRegistration() {
-		return registration;
+	public int getId() {
+		return id;
 	}
 
-	public void setRegistration(int registration) {
-		this.registration = registration;
-	}
+	
 	
 	  @Override
 	    public String toString() {
 	        return "Name: " + name 
 	             + ", CPF: " + cpf 
-	             + ", Registration: " + registration;
+	             + ", ID: " + id;
 	    }
 	
 	

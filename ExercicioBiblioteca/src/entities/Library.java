@@ -36,14 +36,22 @@ public class Library {
 		books.remove(book);
 	}
 
-	public BorrowResult borrowBook(String title) {
+	public BorrowResult borrowBook(String id) {
 	    for (Book b : books) {
-	        if (title.equalsIgnoreCase(b.getTitle())) {
+	        if (b.getId() != null) {
 
 	            if (b.isAvailable()) {
 	                b.setAvailable(false);
 	                return BorrowResult.SUCCESS;
-	            } else {
+	            } 
+	            
+	            if (b.isUnvailable()) {
+	            	b.setAvailable(false);
+	            	return BorrowResult.UNAVAILABLE;
+	            }
+	            
+	            
+	            else {
 	                return BorrowResult.UNAVAILABLE;
 	            }
 	        }
@@ -56,18 +64,35 @@ public class Library {
 
 	
 
-	public boolean returnBook(String title) {
-		for (Book b : books) {
-			if (b.getTitle().equals(title)) {
-				b.setAvailable(true);
-				return true;
+	public BorrowResult returnBook(Book book) {
+		 if (book == null) {
+			 return BorrowResult.NOT_FOUND;
+		 }
+		    if (book.isAvailable()) {
+		    	return BorrowResult.UNAVAILABLE;
+		    }
+		    if (book.isUnvailable()) {
+		    	return BorrowResult.SUCCESS;
+		    }
+		    
+		    book.setAvailable(true);
 
-			}
-		} return false;
+		  return BorrowResult.SUCCESS;
+		} 
 		
-	}
+	
 
 	public void removeUserByCpf(String cpf) {
 		users.removeIf(u -> cpf.equals(u.getCpf()));
+	}
+	
+	public Book findBookById(String id) {
+		for (Book b : books) {
+			if (b.getId().equals(id)) {
+				return b;
+				
+			}
+			
+		}return null;
 	}
 }

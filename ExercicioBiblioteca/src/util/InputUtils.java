@@ -32,10 +32,10 @@ public class InputUtils {
 		String name = sc.nextLine();
 		System.out.print("Enter user CPF: ");
 		String cpf = sc.nextLine();
-		System.out.print("Enter user register: ");
-		Integer registration = sc.nextInt();
+		System.out.print("Enter user id: ");
+		Integer id = sc.nextInt();
 		sc.nextLine();
-		User user = new User(name, cpf, registration);
+		User user = new User(name, cpf, id);
 
 		library.addUser(user);
 
@@ -74,8 +74,10 @@ public class InputUtils {
 		String title = sc.nextLine();
 		System.out.println("Enter ISBN number: ");
 		String isbn = sc.nextLine();
+		System.out.println("Enter book id: ");
+		String id = sc.nextLine();
 
-		Book book = new Book(title, isbn);
+		Book book = new Book(title, isbn, id);
 
 		library.addBook(book);
 
@@ -96,27 +98,48 @@ public class InputUtils {
 	}
 
 	public static void borrowBook(Scanner sc, Library library) {
-		
-        sc.nextLine();
-		System.out.println("Enter the title of book to borrow: ");
-		String title = sc.nextLine();
-		BorrowResult result = library.borrowBook(title);
-		
+
+		sc.nextLine();
+		System.out.println("Enter the book id: ");
+		String bookid = sc.nextLine();
+		BorrowResult result = library.borrowBook(bookid);
+
 		switch (result) {
+		case SUCCESS:
+			System.out.println("Book borrowed successfully!");
+			break;
+
+		case UNAVAILABLE:
+			System.out.println("Book not available!");
+			break;
+		// default: System.out.println("Unkown error");
+		// break;
+		case NOT_FOUND:
+			System.out.println("Book not found!");
+			break;
+
+		}
+	}
+
+	public static void returnBook(Scanner sc, Library library) {
+		System.out.println("Enter ID of book to return: ");
+		String id = sc.nextLine();
+		Book book = library.findBookById(id);
+		 BorrowResult result = library.returnBook(book);
+		 
+		 switch (result) {
 			case SUCCESS:
-				System.out.println("Book borrowed successfully!");
+				System.out.println("Book returned successfully!");
 				break;
-				
+
 			case UNAVAILABLE:
 				System.out.println("Book not available!");
 				break;
-		default: System.out.println("Unkown error");
-			break;
-				
-		
-				
-		}
-		
+			
+			case NOT_FOUND:
+				System.out.println("Book not found!");
+				break;
 
+			}
 	}
 }
