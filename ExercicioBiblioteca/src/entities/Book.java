@@ -1,17 +1,16 @@
 package entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Book {
 	
+	
+
 	private String title;
 	private String isbn;
 	private String id;
 	private boolean available;
 	private boolean unavailable;
 	
-	private List<Book> books = new ArrayList<>();
+
 	
 	
 	public String getId() {
@@ -57,9 +56,6 @@ public class Book {
 		this.isbn = isbn;
 	}
 	
-	public List<Book> getBooks () {
-		return books;
-	}
 	
 	
 	public boolean isAvailable() {

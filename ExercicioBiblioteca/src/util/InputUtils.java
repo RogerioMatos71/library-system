@@ -97,12 +97,12 @@ public class InputUtils {
 		}
 	}
 
-	public static void borrowBook(Scanner sc, Library library) {
+	public static void borrowBook(Scanner sc, Library library, Book book) {
 
 		sc.nextLine();
 		System.out.println("Enter the book id: ");
-		String bookid = sc.nextLine();
-		BorrowResult result = library.borrowBook(bookid);
+		String id = sc.nextLine();
+	    BorrowResult result = library.borrowBook(id);
 
 		switch (result) {
 		case SUCCESS:
@@ -122,6 +122,7 @@ public class InputUtils {
 	}
 
 	public static void returnBook(Scanner sc, Library library) {
+		sc.nextLine();
 		System.out.println("Enter ID of book to return: ");
 		String id = sc.nextLine();
 		Book book = library.findBookById(id);

@@ -38,7 +38,7 @@ public class Library {
 
 	public BorrowResult borrowBook(String id) {
 	    for (Book b : books) {
-	        if (b.getId() != null) {
+	        if (b.getId().equals(id)) {
 
 	            if (b.isAvailable()) {
 	                b.setAvailable(false);
@@ -51,8 +51,8 @@ public class Library {
 	            }
 	            
 	            
-	            else {
-	                return BorrowResult.UNAVAILABLE;
+	             {
+	               return BorrowResult.NOT_FOUND;
 	            }
 	        }
 	    }
