@@ -1,0 +1,158 @@
+package util;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import entities.Book;
+import entities.Library;
+import entities.User;
+import entities.enums.BorrowResult;
+
+public class InputUtils {
+
+	public static void showMenu() {
+		System.out.println("Menu");
+		System.out.println("1 - Add user");
+		System.out.println("2 - Consult user");
+		System.out.println("3 - Remove user");
+		System.out.println("4 - Add book");
+		System.out.println("5 - Remove book");
+		System.out.println("6 - Borrow book");
+		System.out.println("7 - Return book");
+		System.out.println("0 - Exit");
+		System.out.println("Enter the desired option: ");
+
+	}
+
+	public static void enterData(Scanner sc, Library library) {
+
+		
+		System.out.print("Enter user name: ");
+		String name = sc.nextLine();
+		System.out.print("Enter user CPF: ");
+		String cpf = sc.nextLine();
+		System.out.print("Enter user id: ");
+		Integer id = sc.nextInt();
+		sc.nextLine();
+		User user = new User(name, cpf, id);
+
+		library.addUser(user);
+
+		System.out.println("User added successfully.");
+
+	}
+
+	public static void consultName(Scanner sc, Library library) {
+
+		
+		System.out.println("Enter the name to consult: ");
+		String name2 = sc.nextLine();
+		User result = library.consultUser(name2);
+
+		if (result != null) {
+			System.out.print(result);
+		} else
+			System.out.println("User not found!");
+
+	}
+
+	public static void deleteName(Scanner sc, Library library) {
+
+		
+		System.out.print("Enter user CPF to remove: ");
+		String cpf = sc.nextLine();
+        if (cpf == null || cpf.isBlank()) {
+        	System.out.println("Invalid CPF!");
+        	
+        } 
+        
+		boolean removed = library.removeUserByCpf(cpf);
+		if (removed) {
+			System.out.println("User removed!");
+		} else 
+			System.out.println("User not found!");
+		
+		
+		
+
+	}
+
+	public static void enterDataBook(Scanner sc, Library library) {
+
+		
+		System.out.println("Enter book title: ");
+		String title = sc.nextLine();
+		System.out.println("Enter ISBN number: ");
+		String isbn = sc.nextLine();
+		System.out.println("Enter book id: ");
+		String id = sc.nextLine();
+
+		Book book = new Book(title, isbn, id);
+
+		library.addBook(book);
+
+		System.out.println("Book added successfully!");
+
+	}
+
+	public static void deleteBook(Scanner sc, Library library) {
+		List<Book> books = new ArrayList<>();
+		String input = sc.nextLine();
+		System.out.println("Enter book title or ISBN to remove: ");
+
+		for (Book b : books) {
+			if (b.getTitle().equals(input) || b.getIsbn().equals(input)) {
+				library.removeBook(b);
+			}
+		}
+	}
+
+	public static void borrowBook(Scanner sc, Library library) {
+
+		
+		System.out.println("Enter the book id: ");
+		String id = sc.nextLine();
+		Book book = library.findBookById(id);
+	    BorrowResult result = library.borrowBook(book);
+
+		switch (result) {
+		case SUCCESS:
+			System.out.println("Book borrowed successfully!");
+			break;
+
+		case UNAVAILABLE:
+			System.out.println("Book not available!");
+			break;
+		// default: System.out.println("Unkown error");
+		// break;
+		case NOT_FOUND:
+			System.out.println("Book not found!");
+			break;
+
+		}
+	}
+
+	public static void returnBook(Scanner sc, Library library) {
+		
+		System.out.println("Enter ID of book to return: ");
+		String id = sc.nextLine();
+		Book book = library.findBookById(id);
+		 BorrowResult result = library.returnBook(book);
+		 
+		 switch (result) {
+			case SUCCESS:
+				System.out.println("Book returned successfully!");
+				break;
+
+			case UNAVAILABLE:
+				System.out.println("Book not available!");
+				break;
+			
+			case NOT_FOUND:
+				System.out.println("Book not found!");
+				break;
+
+			}
+	}
+}

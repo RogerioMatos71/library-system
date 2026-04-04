@@ -27,7 +27,7 @@ public class InputUtils {
 
 	public static void enterData(Scanner sc, Library library) {
 
-		sc.nextLine();
+		
 		System.out.print("Enter user name: ");
 		String name = sc.nextLine();
 		System.out.print("Enter user CPF: ");
@@ -45,7 +45,7 @@ public class InputUtils {
 
 	public static void consultName(Scanner sc, Library library) {
 
-		sc.nextLine();
+		
 		System.out.println("Enter the name to consult: ");
 		String name2 = sc.nextLine();
 		User result = library.consultUser(name2);
@@ -59,17 +59,28 @@ public class InputUtils {
 
 	public static void deleteName(Scanner sc, Library library) {
 
-		sc.nextLine();
-		System.out.print("Enter user CPF: ");
+		
+		System.out.print("Enter user CPF to remove: ");
 		String cpf = sc.nextLine();
-
-		library.removeUserByCpf(cpf);
+        if (cpf == null || cpf.isBlank()) {
+        	System.out.println("Invalid CPF!");
+        	return;
+        } 
+        
+		boolean removed = library.removeUserByCpf(cpf);
+		if (removed) {
+			System.out.println("User removed!");
+		} else {
+			System.out.println("User not found!");
+		
+		}
+		
 
 	}
 
 	public static void enterDataBook(Scanner sc, Library library) {
 
-		sc.nextLine();
+		
 		System.out.println("Enter book title: ");
 		String title = sc.nextLine();
 		System.out.println("Enter ISBN number: ");
@@ -97,12 +108,13 @@ public class InputUtils {
 		}
 	}
 
-	public static void borrowBook(Scanner sc, Library library, Book book) {
+	public static void borrowBook(Scanner sc, Library library) {
 
-		sc.nextLine();
+		
 		System.out.println("Enter the book id: ");
 		String id = sc.nextLine();
-	    BorrowResult result = library.borrowBook(id);
+		Book book = library.findBookById(id);
+	    BorrowResult result = library.borrowBook(book);
 
 		switch (result) {
 		case SUCCESS:
@@ -122,7 +134,7 @@ public class InputUtils {
 	}
 
 	public static void returnBook(Scanner sc, Library library) {
-		sc.nextLine();
+		
 		System.out.println("Enter ID of book to return: ");
 		String id = sc.nextLine();
 		Book book = library.findBookById(id);

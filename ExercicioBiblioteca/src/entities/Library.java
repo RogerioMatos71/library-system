@@ -36,63 +36,43 @@ public class Library {
 		books.remove(book);
 	}
 
-	public BorrowResult borrowBook(String id) {
-	    for (Book b : books) {
-	        if (b.getId().equals(id)) {
+	public BorrowResult borrowBook(Book book) {
+		if (book == null) {
+			return BorrowResult.NOT_FOUND;
+		}
+		if (book.isAvailable()) {
+			book.setAvailable(false);
+			return BorrowResult.SUCCESS;
+		}
 
-	            if (b.isAvailable()) {
-	                b.setAvailable(false);
-	                return BorrowResult.SUCCESS;
-	            } 
-	            
-	            if (b.isUnvailable()) {
-	            	b.setAvailable(false);
-	            	return BorrowResult.UNAVAILABLE;
-	            }
-	            
-	            
-	             {
-	               return BorrowResult.NOT_FOUND;
-	            }
-	        }
-	    }
-	    return BorrowResult.NOT_FOUND;
+		return BorrowResult.UNAVAILABLE;
 	}
-
-
-	
-
-	
 
 	public BorrowResult returnBook(Book book) {
-		 if (book == null) {
-			 return BorrowResult.NOT_FOUND;
-		 }
-		    if (book.isAvailable()) {
-		    	return BorrowResult.UNAVAILABLE;
-		    }
-		    if (book.isUnvailable()) {
-		    	return BorrowResult.SUCCESS;
-		    }
-		    
-		    book.setAvailable(true);
+		if (book == null) {
+			return BorrowResult.NOT_FOUND;
+		}
+		if (book.isAvailable()) {
+			return BorrowResult.UNAVAILABLE;
+		}
 
-		  return BorrowResult.SUCCESS;
-		} 
-		
-	
+		book.setAvailable(true);
 
-	public void removeUserByCpf(String cpf) {
-		users.removeIf(u -> cpf.equals(u.getCpf()));
+		return BorrowResult.SUCCESS;
 	}
-	
+
+	public boolean removeUserByCpf(String cpf) {
+		return users.removeIf(u -> cpf.equals(u.getCpf()));
+
+	}
 	public Book findBookById(String id) {
 		for (Book b : books) {
 			if (b.getId().equals(id)) {
 				return b;
-				
+
 			}
-			
-		}return null;
+
+		}
+		return null;
 	}
 }

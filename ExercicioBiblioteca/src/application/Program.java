@@ -2,7 +2,6 @@ package application;
 
 import java.util.Scanner;
 
-import entities.Book;
 import entities.Library;
 import util.InputUtils;
 
@@ -10,9 +9,9 @@ public class Program {
 
 	public static void main(String[] args) {
 		
-		Scanner sc = new Scanner(System.in);
+		Scanner sc =new Scanner(System.in);
 		Library library = new Library();
-		Book book = new Book();
+		
 		int option;
 		
 		
@@ -24,6 +23,7 @@ public class Program {
 			InputUtils.showMenu();
 		
 			option = sc.nextInt();
+			sc.nextLine();
 		
 		
 		switch (option) {
@@ -59,7 +59,7 @@ public class Program {
 			
 		case 6:
 			
-			InputUtils.borrowBook(sc, library, book);
+			InputUtils.borrowBook(sc, library);
 			
 			break;
 			
