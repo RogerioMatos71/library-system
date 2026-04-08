@@ -8,7 +8,7 @@ import entities.enums.BorrowResult;
 public class Library {
 
 	private List<Book> books = new ArrayList<>();
-	private static List<User> users = new ArrayList<>();
+	private List<User> users = new ArrayList<>();
 
 	public void addUser(User user) {
 		users.add(user);
@@ -74,5 +74,19 @@ public class Library {
 
 		}
 		return null;
+	}
+	
+	public boolean consultCpf(String cpf) {
+		if (cpf == null || cpf.isBlank()) {
+			return false;
+		}
+		for (User u : users) {
+			if (cpf.equals(u.getCpf())) {
+				return true;
+			}
+			
+
+		} return false;
+		
 	}
 }

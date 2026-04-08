@@ -27,11 +27,26 @@ public class InputUtils {
 
 	public static void enterData(Scanner sc, Library library) {
 
-		
 		System.out.print("Enter user name: ");
 		String name = sc.nextLine();
-		System.out.print("Enter user CPF: ");
-		String cpf = sc.nextLine();
+		String cpf = null;
+		
+		boolean cpfResult = library.consultCpf(cpf);
+
+		
+		do {
+			System.out.print("Enter user CPF: ");
+			cpf = sc.nextLine();
+			
+			cpfResult = library.consultCpf(cpf);
+			
+			if (cpfResult) {
+				System.out.println("CPF already exists!");
+
+			} 
+				
+		} while (cpfResult);
+
 		System.out.print("Enter user id: ");
 		Integer id = sc.nextInt();
 		sc.nextLine();
@@ -45,7 +60,6 @@ public class InputUtils {
 
 	public static void consultName(Scanner sc, Library library) {
 
-		
 		System.out.println("Enter the name to consult: ");
 		String name2 = sc.nextLine();
 		User result = library.consultUser(name2);
@@ -59,28 +73,25 @@ public class InputUtils {
 
 	public static void deleteName(Scanner sc, Library library) {
 
-		
 		System.out.print("Enter user CPF to remove: ");
 		String cpf = sc.nextLine();
-        if (cpf == null || cpf.isBlank()) {
-        	System.out.println("Invalid CPF!");
-        	return;
-        } 
-        
+		if (cpf == null || cpf.isBlank()) {
+			System.out.println("Invalid CPF!");
+			return;
+		}
+
 		boolean removed = library.removeUserByCpf(cpf);
 		if (removed) {
 			System.out.println("User removed!");
 		} else {
 			System.out.println("User not found!");
-		
+
 		}
-		
 
 	}
 
 	public static void enterDataBook(Scanner sc, Library library) {
 
-		
 		System.out.println("Enter book title: ");
 		String title = sc.nextLine();
 		System.out.println("Enter ISBN number: ");
@@ -110,11 +121,10 @@ public class InputUtils {
 
 	public static void borrowBook(Scanner sc, Library library) {
 
-		
 		System.out.println("Enter the book id: ");
 		String id = sc.nextLine();
 		Book book = library.findBookById(id);
-	    BorrowResult result = library.borrowBook(book);
+		BorrowResult result = library.borrowBook(book);
 
 		switch (result) {
 		case SUCCESS:
@@ -134,25 +144,25 @@ public class InputUtils {
 	}
 
 	public static void returnBook(Scanner sc, Library library) {
-		
+
 		System.out.println("Enter ID of book to return: ");
 		String id = sc.nextLine();
 		Book book = library.findBookById(id);
-		 BorrowResult result = library.returnBook(book);
-		 
-		 switch (result) {
-			case SUCCESS:
-				System.out.println("Book returned successfully!");
-				break;
+		BorrowResult result = library.returnBook(book);
 
-			case UNAVAILABLE:
-				System.out.println("Book not available!");
-				break;
-			
-			case NOT_FOUND:
-				System.out.println("Book not found!");
-				break;
+		switch (result) {
+		case SUCCESS:
+			System.out.println("Book returned successfully!");
+			break;
 
-			}
+		case UNAVAILABLE:
+			System.out.println("Book not available!");
+			break;
+
+		case NOT_FOUND:
+			System.out.println("Book not found!");
+			break;
+
+		}
 	}
 }
