@@ -12,6 +12,14 @@ public class Book {
 	
 
 	
+	public Book(String title, String isbn, int id) {
+		this.title = title;
+		this.isbn = isbn;
+		this.id = id;
+		this.available = true;
+	}
+
+	
 	
 	public boolean isUnavailable() {
 		return unavailable;
@@ -41,13 +49,7 @@ public class Book {
 		
 	}
 
-	public Book(String title, String isbn, int id) {
-		this.title = title;
-		this.isbn = isbn;
-		this.id = id;
-		this.available = true;
-	}
-
+	
 	public String getTitle() {
 		return title;
 	}

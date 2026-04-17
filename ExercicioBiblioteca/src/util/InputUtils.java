@@ -112,8 +112,8 @@ public class InputUtils {
 
 		library.addBook(book);
 
-		System.out.println("Book added successfully!");
-		System.out.print("Book id: " + library.getNextBookId());
+		System.out.println("==== Book added successfully!====");
+		System.out.println("Book id: " + book.getId());
 
 	}
 

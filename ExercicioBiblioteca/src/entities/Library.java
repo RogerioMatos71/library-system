@@ -68,11 +68,11 @@ public class Library {
 			return BorrowResult.UNAVAILABLE;
 		}
 		
-		int idLoan = nextIdLoan++;
+	
 	    loanDate = LocalDate.now();
 	    LocalDate dueDate = loanDate.plusDays(7);
 
-	    Loan loan = new Loan(idLoan, book, user, loanDate, dueDate);
+	    Loan loan = new Loan(book, user, loanDate, dueDate);
 	    loans.add(loan);
 
 		return BorrowResult.SUCCESS;
