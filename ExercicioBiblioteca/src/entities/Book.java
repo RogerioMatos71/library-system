@@ -6,7 +6,7 @@ public class Book {
 
 	private String title;
 	private String isbn;
-	private String id;
+	private int id;
 	private boolean available;
 	private boolean unavailable;
 	
@@ -21,11 +21,11 @@ public class Book {
 		this.unavailable = unavailable;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -41,7 +41,7 @@ public class Book {
 		
 	}
 
-	public Book(String title, String isbn, String id) {
+	public Book(String title, String isbn, int id) {
 		this.title = title;
 		this.isbn = isbn;
 		this.id = id;

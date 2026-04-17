@@ -1,7 +1,8 @@
 package util;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import entities.Book;
@@ -25,44 +26,53 @@ public class InputUtils {
 
 	}
 
+	private static LocalDate readDate(Scanner sc) {
+
+		while (true) {
+			try {
+				System.out.print("Digite a data (yyyy-MM-dd): ");
+
+				String input = sc.nextLine();
+				return LocalDate.parse(input);
+			} catch (DateTimeParseException e) {
+				System.out.println("Formato inválido! Use yyyy-MM-dd.");
+			}
+		}
+	}
+
 	public static void enterData(Scanner sc, Library library) {
 
 		System.out.print("Enter user name: ");
 		String name = sc.nextLine();
-		String cpf = null;
-		
-		boolean cpfResult = library.consultCpf(cpf);
+		String cpf;
 
-		
+		User cpfResult;
+
 		do {
 			System.out.print("Enter user CPF: ");
 			cpf = sc.nextLine();
-			
-			cpfResult = library.consultCpf(cpf);
-			
-			if (cpfResult) {
+
+			cpfResult = library.findUserByCpf(cpf);
+
+			if (cpfResult != null) {
 				System.out.println("CPF already exists!");
 
-			} 
-				
-		} while (cpfResult);
+			}
 
-		System.out.print("Enter user id: ");
-		Integer id = sc.nextInt();
-		sc.nextLine();
-		User user = new User(name, cpf, id);
+		} while (cpfResult != null);
 
-		library.addUser(user);
+		library.addUser(name, cpf);
 
 		System.out.println("User added successfully.");
+		System.out.print("User id: " + library.getNextUserId());
 
 	}
 
-	public static void consultName(Scanner sc, Library library) {
+	public static void consultNameByCpf(Scanner sc, Library library) {
 
-		System.out.println("Enter the name to consult: ");
-		String name2 = sc.nextLine();
-		User result = library.consultUser(name2);
+		System.out.println("Enter the user´s CPF to check: ");
+		String cpf = sc.nextLine();
+		User result = library.findUserByCpf(cpf);
 
 		if (result != null) {
 			System.out.print(result);
@@ -96,35 +106,48 @@ public class InputUtils {
 		String title = sc.nextLine();
 		System.out.println("Enter ISBN number: ");
 		String isbn = sc.nextLine();
-		System.out.println("Enter book id: ");
-		String id = sc.nextLine();
+		int id = 0;
 
 		Book book = new Book(title, isbn, id);
 
 		library.addBook(book);
 
 		System.out.println("Book added successfully!");
+		System.out.print("Book id: " + library.getNextBookId());
 
 	}
 
 	public static void deleteBook(Scanner sc, Library library) {
-		List<Book> books = new ArrayList<>();
-		String input = sc.nextLine();
-		System.out.println("Enter book title or ISBN to remove: ");
+		System.out.print("Enter book id to delete: ");
+		int id = sc.nextInt();
+		sc.nextLine();
 
-		for (Book b : books) {
-			if (b.getTitle().equals(input) || b.getIsbn().equals(input)) {
-				library.removeBook(b);
-			}
+		boolean removed = library.removeBookById(id);
+
+		if (removed) {
+			System.out.println("Book deleted!");
+		} else {
+			System.out.println("Book not found!");
 		}
+
 	}
 
 	public static void borrowBook(Scanner sc, Library library) {
 
 		System.out.println("Enter the book id: ");
-		String id = sc.nextLine();
+		int id = sc.nextInt();
+		sc.nextLine();
 		Book book = library.findBookById(id);
-		BorrowResult result = library.borrowBook(book);
+
+		System.out.print("Enter user CPF: ");
+		String userCpf = sc.nextLine();
+		sc.nextLine();
+
+		User user = library.findUserByCpf(userCpf);
+
+		LocalDate loanDate = readDate(sc);
+
+		BorrowResult result = library.borrowBook(book, user, loanDate);
 
 		switch (result) {
 		case SUCCESS:
@@ -143,12 +166,13 @@ public class InputUtils {
 		}
 	}
 
-	public static void returnBook(Scanner sc, Library library) {
+	public static void returnBook(Scanner sc, Library library, User user) {
 
 		System.out.println("Enter ID of book to return: ");
-		String id = sc.nextLine();
+		int id = sc.nextInt();
+		sc.nextLine();
 		Book book = library.findBookById(id);
-		BorrowResult result = library.returnBook(book);
+		BorrowResult result = library.returnBook(book, user);
 
 		switch (result) {
 		case SUCCESS:
@@ -165,4 +189,5 @@ public class InputUtils {
 
 		}
 	}
+
 }

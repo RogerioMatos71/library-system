@@ -9,7 +9,7 @@ public class Program {
 
 	public static void main(String[] args) {
 		
-		Scanner sc =new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		Library library = new Library();
 		
 		int option;
@@ -35,7 +35,7 @@ public class Program {
 		
 		case 2:
 			
-			InputUtils.consultName(sc, library);
+			InputUtils.consultNameByCpf(sc, library);
 			
 		    break;
 		    
@@ -65,7 +65,7 @@ public class Program {
 			
 		case 7:
 			
-			InputUtils.returnBook(sc, library);
+			//InputUtils.returnBook(sc, library);
 			
 			break;
 			

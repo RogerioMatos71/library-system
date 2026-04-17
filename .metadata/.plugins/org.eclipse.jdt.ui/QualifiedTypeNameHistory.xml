@@ -4,10 +4,11 @@
     <fullyQualifiedTypeName name="java.time.Instant"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="jdk.internal.org.jline.terminal.TerminalBuilder.SystemOutput"/>
-    <fullyQualifiedTypeName name="entities.User"/>
     <fullyQualifiedTypeName name="util.InputUtils"/>
     <fullyQualifiedTypeName name="entities.Library"/>
     <fullyQualifiedTypeName name="entities.enums.BorrowResult"/>
     <fullyQualifiedTypeName name="entities.Book"/>
     <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="entities.Loan"/>
+    <fullyQualifiedTypeName name="entities.User"/>
 </qualifiedTypeNameHistroy>

@@ -14,6 +14,7 @@ public class User {
 		this.name = name;
 		this.cpf = cpf;
 		this.id = id;
+		
 	}
 
 	public String getName() {
@@ -44,6 +45,8 @@ public class User {
 	             + ", CPF: " + cpf 
 	             + ", ID: " + id;
 	    }
+
+	
 	
 	
 	

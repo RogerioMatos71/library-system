@@ -1,5 +1,6 @@
 package entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,10 +8,16 @@ import entities.enums.BorrowResult;
 
 public class Library {
 
+	private int nextIdLoan = 1;
+	private int nextUserId = 1;
+	private int nextBookId = 1;
+
 	private List<Book> books = new ArrayList<>();
 	private List<User> users = new ArrayList<>();
+	private List<Loan> loans = new ArrayList<>();
 
-	public void addUser(User user) {
+	public void addUser(String name, String cpf) {
+		User user = new User (name, cpf, nextUserId++);
 		users.add(user);
 	}
 
@@ -18,37 +25,60 @@ public class Library {
 		users.remove(user);
 	}
 
-	public User consultUser(String name) {
-		for (User u : users) {
-			if (u.getName().equals(name)) {
-				return u;
-			}
 
-		}
-		return null;
+	public int getNextIdLoan() {
+		return nextIdLoan;
+	}
+
+	public int getNextUserId() {
+		return nextUserId;
+	}
+
+	public int getNextBookId() {
+		return nextBookId;
+	}
+
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public List<Loan> getLoans() {
+		return loans;
 	}
 
 	public void addBook(Book book) {
+		book.setId(nextBookId++);
 		books.add(book);
 	}
 
-	public void removeBook(Book book) {
-		books.remove(book);
+	public boolean removeBookById(int id) {
+		return books.removeIf(book -> book.getId() == id);
+		
 	}
 
-	public BorrowResult borrowBook(Book book) {
-		if (book == null) {
+	public BorrowResult borrowBook(Book book, User user, LocalDate loanDate) {
+		if (book == null || user == null) {
 			return BorrowResult.NOT_FOUND;
 		}
-		if (book.isAvailable()) {
-			book.setAvailable(false);
-			return BorrowResult.SUCCESS;
+		if (!book.isAvailable()) {
+			return BorrowResult.UNAVAILABLE;
 		}
+		
+		int idLoan = nextIdLoan++;
+	    loanDate = LocalDate.now();
+	    LocalDate dueDate = loanDate.plusDays(7);
 
-		return BorrowResult.UNAVAILABLE;
+	    Loan loan = new Loan(idLoan, book, user, loanDate, dueDate);
+	    loans.add(loan);
+
+		return BorrowResult.SUCCESS;
 	}
 
-	public BorrowResult returnBook(Book book) {
+	public BorrowResult returnBook(Book book, User user) {
 		if (book == null) {
 			return BorrowResult.NOT_FOUND;
 		}
@@ -65,9 +95,9 @@ public class Library {
 		return users.removeIf(u -> cpf.equals(u.getCpf()));
 
 	}
-	public Book findBookById(String id) {
+	public Book findBookById(int id) {
 		for (Book b : books) {
-			if (b.getId().equals(id)) {
+			if (b.getId() == id) {
 				return b;
 
 			}
@@ -76,17 +106,17 @@ public class Library {
 		return null;
 	}
 	
-	public boolean consultCpf(String cpf) {
+	public User findUserByCpf(String cpf) {
 		if (cpf == null || cpf.isBlank()) {
-			return false;
+			return null;
 		}
 		for (User u : users) {
 			if (cpf.equals(u.getCpf())) {
-				return true;
+				return u;
 			}
 			
 
-		} return false;
+		} return null;
 		
 	}
 }
