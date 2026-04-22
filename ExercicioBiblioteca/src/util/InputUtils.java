@@ -1,12 +1,12 @@
 package util;
 
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import entities.Book;
 import entities.Library;
+import entities.Loan;
 import entities.User;
 import entities.enums.BorrowResult;
 
@@ -30,12 +30,12 @@ public class InputUtils {
 
 		while (true) {
 			try {
-				System.out.print("Digite a data (yyyy-MM-dd): ");
+				System.out.print("Enter the date (yyyy-MM-dd): ");
 
 				String input = sc.nextLine();
 				return LocalDate.parse(input);
 			} catch (DateTimeParseException e) {
-				System.out.println("Formato inválido! Use yyyy-MM-dd.");
+				System.out.println("Invalid fotmat! Use yyyy-MM-dd.");
 			}
 		}
 	}
@@ -61,10 +61,10 @@ public class InputUtils {
 
 		} while (cpfResult != null);
 
-		library.addUser(name, cpf);
+		User user = library.addUser(name, cpf);
 
-		System.out.println("User added successfully.");
-		System.out.print("User id: " + library.getNextUserId());
+		System.out.println("==== User added successfully!====");
+		System.out.println("==== User id: " + user.getId() + " ====");
 
 	}
 
@@ -75,7 +75,7 @@ public class InputUtils {
 		User result = library.findUserByCpf(cpf);
 
 		if (result != null) {
-			System.out.print(result);
+			System.out.println(result);
 		} else
 			System.out.println("User not found!");
 
@@ -133,42 +133,58 @@ public class InputUtils {
 	}
 
 	public static void borrowBook(Scanner sc, Library library) {
-
-		System.out.println("Enter the book id: ");
+		System.out.println("Enter book id to loan: ");
 		int id = sc.nextInt();
 		sc.nextLine();
+		
 		Book book = library.findBookById(id);
-
+		
+		if (book == null) {
+			System.out.println("Book not found!");
+			   return;
+		}
+		
 		System.out.print("Enter user CPF: ");
 		String userCpf = sc.nextLine();
-		sc.nextLine();
-
+		
 		User user = library.findUserByCpf(userCpf);
-
-		LocalDate loanDate = readDate(sc);
-
-		BorrowResult result = library.borrowBook(book, user, loanDate);
-
-		switch (result) {
-		case SUCCESS:
-			System.out.println("Book borrowed successfully!");
-			break;
-
-		case UNAVAILABLE:
+		
+		if (user == null) {
+			System.out.println("User not found!");
+			return;
+		}   
+		
+		
+		System.out.println("User found: " + user.getName());
+		
+		Loan loan = library.borrowBook(book, user);
+		
+		if (loan == null) {
 			System.out.println("Book not available!");
-			break;
-		// default: System.out.println("Unkown error");
-		// break;
-		case NOT_FOUND:
-			System.out.println("Book not found!");
-			break;
-
+			return;
 		}
+		
+		System.out.println("Book borrowed successfully!");
+		System.out.println("Loan date: " + loan.getLoanDate());
+		System.out.println("Due date: " + loan.getDueDate());
+		
+		
 	}
+		
+	public static void returnBook(Scanner sc, Library library) {
+        
+		 System.out.print("Enter user CPF: ");
+		    String userCpf = sc.nextLine();
 
-	public static void returnBook(Scanner sc, Library library, User user) {
+		    User user = library.findUserByCpf(userCpf);
 
-		System.out.println("Enter ID of book to return: ");
+		    if (user == null) {
+		        System.out.println("User not found!");
+		        return;
+		    }
+		    
+		    
+		System.out.println("Enter book id to return: ");
 		int id = sc.nextInt();
 		sc.nextLine();
 		Book book = library.findBookById(id);

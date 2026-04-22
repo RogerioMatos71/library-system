@@ -8,9 +8,11 @@ public class Book {
 	private String isbn;
 	private int id;
 	private boolean available;
-	private boolean unavailable;
 	
-
+	
+    public Book() {
+    	
+    }
 	
 	public Book(String title, String isbn, int id) {
 		this.title = title;
@@ -21,14 +23,8 @@ public class Book {
 
 	
 	
-	public boolean isUnavailable() {
-		return unavailable;
-	}
 
-	public void setUnavailable(boolean unavailable) {
-		this.unavailable = unavailable;
-	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -41,12 +37,8 @@ public class Book {
 		return available;
 	}
 
-	public void setAvailable(Boolean available) {
+	public void setAvailable(boolean available) {
 		this.available = available;
-	}
-
-	public Book() {
-		
 	}
 
 	
@@ -73,10 +65,6 @@ public class Book {
 	
 	}
 	
-	public boolean isUnvailable() {
-		return unavailable;
-	
-	}
 	
 
 }

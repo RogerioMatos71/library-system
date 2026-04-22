@@ -8,87 +8,68 @@ import util.InputUtils;
 public class Program {
 
 	public static void main(String[] args) {
-		
+
 		Scanner sc = new Scanner(System.in);
 		Library library = new Library();
-		
+
 		int option;
-		
-		
-		
-		
-		
+
 		do {
-			
+
 			InputUtils.showMenu();
-		
+
 			option = sc.nextInt();
 			sc.nextLine();
-		
-		
-		switch (option) {
-		case 1:
-			
-			InputUtils.enterData( sc, library);
-			
-		    break;
-		
-		case 2:
-			
-			InputUtils.consultNameByCpf(sc, library);
-			
-		    break;
-		    
-		case 3:
-			
-			InputUtils.deleteName(sc, library);
-			
-			break;
-			
-		case 4:
-			
-			InputUtils.enterDataBook(sc, library);
-			
-			break;
-			
-		case 5:
-			
-			InputUtils.deleteBook(sc, library);
-			
-			break;
-			
-		case 6:
-			
-			InputUtils.borrowBook(sc, library);
-			
-			break;
-			
-		case 7:
-			
-			//InputUtils.returnBook(sc, library);
-			
-			break;
-			
-			
-		}
-		
-		
-		
-		}
-		while (option != 0);
-	
-		
-		
-		
-		
-		
-		
-		
-		
+
+			switch (option) {
+			case 1:
+
+				InputUtils.enterData(sc, library);
+
+				break;
+
+			case 2:
+
+				InputUtils.consultNameByCpf(sc, library);
+
+				break;
+
+			case 3:
+
+				InputUtils.deleteName(sc, library);
+
+				break;
+
+			case 4:
+
+				InputUtils.enterDataBook(sc, library);
+
+				break;
+
+			case 5:
+
+				InputUtils.deleteBook(sc, library);
+
+				break;
+
+			case 6:
+
+				InputUtils.borrowBook(sc, library);
+
+				break;
+
+			case 7:
+
+				InputUtils.returnBook(sc, library);
+
+				break;
+
+			}
+
+		} while (option != 0);
+
 		sc.close();
-	
-		
+
 	}
-	
-	
+
 }

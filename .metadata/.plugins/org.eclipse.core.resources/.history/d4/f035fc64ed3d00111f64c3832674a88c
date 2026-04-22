@@ -1,0 +1,115 @@
+package application;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+import db.DB;
+import entities.Library;
+import util.InputUtils;
+
+public class Program {
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		Library library = new Library();
+		
+		int option;
+		
+		Connection conn = null;
+		Statement st = null;
+		ResultSet rs = null;
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("select * from livros");
+			
+			while (rs.next()) {
+				System.out.println(rs.getInt("id"));
+				
+			}
+		}
+		 catch (SQLException e) {
+			 e.printStackTrace();
+		 }
+		
+		
+		
+		
+		do {
+			
+			InputUtils.showMenu();
+		
+			option = sc.nextInt();
+			sc.nextLine();
+		
+		
+		switch (option) {
+		case 1:
+			
+			InputUtils.enterData( sc, library);
+			
+		    break;
+		
+		case 2:
+			
+			InputUtils.consultNameByCpf(sc, library);
+			
+		    break;
+		    
+		case 3:
+			
+			InputUtils.deleteName(sc, library);
+			
+			break;
+			
+		case 4:
+			
+			InputUtils.enterDataBook(sc, library);
+			
+			break;
+			
+		case 5:
+			
+			InputUtils.deleteBook(sc, library);
+			
+			break;
+			
+		case 6:
+			
+			InputUtils.borrowBook(sc, library);
+			
+			break;
+			
+		case 7:
+			
+			InputUtils.returnBook(sc, library);
+			
+			break;
+			
+			
+		}
+		
+		
+		
+		}
+		while (option != 0);
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		sc.close();
+	
+		
+	}
+	
+	
+}

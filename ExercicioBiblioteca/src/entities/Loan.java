@@ -10,9 +10,9 @@ public class Loan {
 	private LocalDate loanDate;
 	private LocalDate dueDate;
 
-	public Loan(Book book, User user, LocalDate loanDate, LocalDate dueDate) {
+	public Loan(int id, Book book, User user, LocalDate loanDate, LocalDate dueDate) {
 		super();
-
+        this.idLoan = id;
 		this.book = book;
 		this.user = user;
 		this.loanDate = loanDate;

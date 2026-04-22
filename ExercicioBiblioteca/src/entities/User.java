@@ -3,14 +3,12 @@ package entities;
 public class User {
 	
 	private String name;
-	private String cpf;
+	private final String cpf;
 	private int id;
 	
-	public User () {
-		
-	}
+	
 
-	public User(String name, String cpf, int id) {	
+	public User(String name, final String cpf, int id) {	
 		this.name = name;
 		this.cpf = cpf;
 		this.id = id;
@@ -29,9 +27,6 @@ public class User {
 		return cpf;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
 
 	public int getId() {
 		return id;

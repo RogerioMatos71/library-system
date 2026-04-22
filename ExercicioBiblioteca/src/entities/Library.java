@@ -16,13 +16,10 @@ public class Library {
 	private List<User> users = new ArrayList<>();
 	private List<Loan> loans = new ArrayList<>();
 
-	public void addUser(String name, String cpf) {
-		User user = new User (name, cpf, nextUserId++);
+	public User addUser(String name, String cpf) {
+		User user = new User(name, cpf, nextUserId++);
 		users.add(user);
-	}
-
-	public void removeUser(User user) {
-		users.remove(user);
+		return user;
 	}
 
 
@@ -57,55 +54,61 @@ public class Library {
 
 	public boolean removeBookById(int id) {
 		return books.removeIf(book -> book.getId() == id);
-		
+
 	}
 
-	public BorrowResult borrowBook(Book book, User user, LocalDate loanDate) {
+	public Loan borrowBook(Book book, User user) {
 		if (book == null || user == null) {
-			return BorrowResult.NOT_FOUND;
+			return null;
 		}
 		if (!book.isAvailable()) {
-			return BorrowResult.UNAVAILABLE;
+			return null;
 		}
-		
-	
-	    loanDate = LocalDate.now();
-	    LocalDate dueDate = loanDate.plusDays(7);
 
-	    Loan loan = new Loan(book, user, loanDate, dueDate);
-	    loans.add(loan);
+		LocalDate loanDate = LocalDate.now();
+		LocalDate dueDate = loanDate.plusDays(7);
 
-		return BorrowResult.SUCCESS;
+		Loan loan = new Loan(nextIdLoan++, book, user, loanDate, dueDate);
+
+		loans.add(loan);
+
+		book.setAvailable(false);
+
+		return loan;
 	}
 
 	public BorrowResult returnBook(Book book, User user) {
-		if (book == null) {
-			return BorrowResult.NOT_FOUND;
+		if (book == null || user == null) {
+			return BorrowResult.NOT_FOUND;	
 		}
-		if (book.isAvailable()) {
-			return BorrowResult.UNAVAILABLE;
-		}
-
-		book.setAvailable(true);
-
-		return BorrowResult.SUCCESS;
+		
+		for (Loan loan : loans) {
+			if (loan.getBook().getId() == book.getId() && loan.getUser().getId() == user.getId()) {
+				book.setAvailable(true);
+				loans.remove(loan);
+				return BorrowResult.SUCCESS;
+			}
+		} return BorrowResult.NOT_FOUND;
+		
+		
 	}
 
 	public boolean removeUserByCpf(String cpf) {
 		return users.removeIf(u -> cpf.equals(u.getCpf()));
 
 	}
+
 	public Book findBookById(int id) {
-		for (Book b : books) {
-			if (b.getId() == id) {
-				return b;
+		for (Book book : books) {
+			if (book.getId() == id) {
+				return book;
 
 			}
 
 		}
 		return null;
 	}
-	
+
 	public User findUserByCpf(String cpf) {
 		if (cpf == null || cpf.isBlank()) {
 			return null;
@@ -114,9 +117,9 @@ public class Library {
 			if (cpf.equals(u.getCpf())) {
 				return u;
 			}
-			
 
-		} return null;
-		
+		}
+		return null;
+
 	}
 }
